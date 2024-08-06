@@ -2,6 +2,7 @@ package org.pizzacrud.configuration;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import jakarta.persistence.Entity;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -18,7 +19,7 @@ import javax.sql.DataSource;
 @Configuration
 @PropertySource("classpath:application.properties")
 @EnableTransactionManagement
-@EnableJpaRepositories("org.pizzacrud")
+@EnableJpaRepositories(basePackages = "org.pizzacrud")
 public class DatabaseConfiguration {
     private final Environment env;
 
@@ -53,7 +54,7 @@ public class DatabaseConfiguration {
 
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("com.alishev");
+        factory.setPackagesToScan("org.pizzacrud");
         factory.setDataSource(dataSource());
         return factory;
     }
