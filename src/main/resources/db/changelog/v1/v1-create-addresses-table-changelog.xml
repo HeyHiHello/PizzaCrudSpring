@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="v1-1" author="Zazulin Kirill">
+        <createTable tableName="Addresses">
+            <column name="id" type="int" autoIncrement="false">
+                <constraints primaryKey="true" nullable="false"
+                             foreignKeyName="Addresses_Customers_id_fk"
+                             referencedTableName="Customers"
+                             referencedColumnNames="id"
+                             deleteCascade="true"/>
+            </column>
+            <column name="city" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="street" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="building" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="v1-2" author="Zazulin Kirill">
+        <loadData tableName="Addresses" file="data/Addresses.csv" relativeToChangelogFile="true"/>
+    </changeSet>
+</databaseChangeLog>

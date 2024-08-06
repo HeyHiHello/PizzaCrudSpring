@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="v1-1" author="Zazulin Kirill">
+        <createTable tableName="m2m_Pizzas_Orders">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="pizza_id" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="m2m_pizza_order_Pizza_id_fk"
+                             referencedTableName="Pizzas"
+                             referencedColumnNames="id"
+                             deleteCascade="true"/>
+            </column>
+            <column name="order_id" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="m2m_pizza_order_Order_id_fk"
+                             referencedTableName="Orders"
+                             referencedColumnNames="id"
+                             deleteCascade="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="v1-2" author="Zazulin Kirill">
+        <loadData tableName="m2m_Pizzas_Orders" file="data/m2m_Pizza_Order.csv" relativeToChangelogFile="true"/>
+    </changeSet>
+</databaseChangeLog>

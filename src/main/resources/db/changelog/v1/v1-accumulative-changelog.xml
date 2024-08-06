@@ -1,0 +1,15 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <include file="v1-create-pizzas-table-changelog.xml" relativeToChangelogFile="true"/>
+    <include file="v1-create-ingredients-table-changelog.xml" relativeToChangelogFile="true"/>
+    <include file="v1-create-m2m-pizza-ingredient-table-changelog.xml" relativeToChangelogFile="true"/>
+    <include file="v1-create-customers-table-changelog.xml" relativeToChangelogFile="true"/>
+    <include file="v1-create-addresses-table-changelog.xml" relativeToChangelogFile="true"/>
+    <include file="v1-create-orders-table-changelog.xml" relativeToChangelogFile="true"/>
+    <include file="v1-create-m2m_pizza_order-table-changelog.xml" relativeToChangelogFile="true"/>
+
+
+</databaseChangeLog>

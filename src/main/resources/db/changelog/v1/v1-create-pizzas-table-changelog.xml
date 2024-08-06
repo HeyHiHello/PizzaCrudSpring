@@ -1,0 +1,33 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="v1-1" author="Zazulin Kirill">
+        <preConditions>
+            <not>
+                <tableExists tableName="Pizzas"/>
+            </not>
+        </preConditions>
+        <createTable tableName="Pizzas">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="price" type="decimal(12, 2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="v1-2" author="Zazulin Kirill">
+        <preConditions>
+            <tableIsEmpty tableName="Pizzas"/>
+        </preConditions>
+        <loadData tableName="Pizzas" file="data/Pizzas.csv" relativeToChangelogFile="true"/>
+    </changeSet>
+
+
+</databaseChangeLog>

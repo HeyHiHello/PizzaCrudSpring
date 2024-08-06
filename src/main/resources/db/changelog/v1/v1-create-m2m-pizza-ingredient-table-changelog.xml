@@ -1,0 +1,35 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="v1-1" author="Zazulin Kirill">
+        <createTable tableName="m2m_Pizzas_Ingredients">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="ingredient_id" type="int">
+                <constraints
+                        foreignKeyName="m2m_Pizza_Ingredient_Ingredients_FK"
+                        referencedTableName="Ingredients"
+                        referencedColumnNames="id"
+                        deleteCascade="true"
+                        nullable="false"/>
+            </column>
+            <column name="pizza_id" type="int">
+                <constraints
+                        foreignKeyName="m2m_Pizza_Ingredient_Pizzas_FK"
+                        referencedTableName="Pizzas"
+                        referencedColumnNames="id"
+                        deleteCascade="true"
+                        nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="v1-2" author="Zazulin Kirill">
+        <loadData tableName="m2m_Pizzas_Ingredients" file="data/m2m_Pizzas_Ingredients.csv" relativeToChangelogFile="true"/>
+    </changeSet>
+
+
+</databaseChangeLog>
