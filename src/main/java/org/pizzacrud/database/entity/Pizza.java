@@ -16,11 +16,11 @@ public class Pizza {
     private String name;
     @Column(name = "price")
     private double price;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "m2m_Pizzas_Ingredients",
             joinColumns = {@JoinColumn(name = "pizza_id")},
             inverseJoinColumns = {@JoinColumn(name = "ingredient_id")})
-    private List<Ingredient> ingredients;
+    private List<Ingredient> ingredients = new ArrayList<>();
 
     public Pizza() {
     }

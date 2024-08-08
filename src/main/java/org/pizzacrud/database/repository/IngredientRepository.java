@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface IngredientRepository extends CrudRepository<Ingredient, Integer> {
     List<Ingredient> findAll();
+    List<Ingredient> findByIdIn(List<Integer> ids);
 }

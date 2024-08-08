@@ -33,6 +33,9 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     public void delete(int id) {
+        if (!ingredientRepository.existsById(id)) {
+            throw new EntityNotFoundException();
+        }
         ingredientRepository.deleteById(id);
     }
 }
