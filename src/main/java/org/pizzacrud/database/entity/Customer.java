@@ -12,37 +12,37 @@ public class Customer {
     @Column(name = "id")
     private int id;
     @Column(name = "firstname")
-    private String firstName;
+    private String firstname;
     @Column(name = "lastname")
-    private String lastName;
+    private String lastname;
 
-    @OneToOne(mappedBy = "customer")
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
     Address address;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
     List<Order> orders;
 
     public Customer() {
     }
 
-    public Customer(int id, String firstName, String lastName, Address address, List<Order> orders) {
+    public Customer(int id, String firstname, String lastname, Address address, List<Order> orders) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.address = address;
         this.orders = orders;
     }
 
-    public Customer(String firstName, String lastName, Address address, List<Order> orders) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Customer(String firstname, String lastname, Address address, List<Order> orders) {
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.address = address;
         this.orders = orders;
     }
 
-    public Customer(String firstName, String lastName, Address address) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Customer(String firstname, String lastname, Address address) {
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.address = address;
     }
 
@@ -54,20 +54,20 @@ public class Customer {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstName) {
+        this.firstname = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastName) {
+        this.lastname = lastName;
     }
 
     public Address getAddress() {

@@ -6,7 +6,6 @@ import org.pizzacrud.database.entity.Pizza;
 import org.pizzacrud.database.repository.IngredientRepository;
 import org.pizzacrud.database.repository.PizzaRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.List;
 

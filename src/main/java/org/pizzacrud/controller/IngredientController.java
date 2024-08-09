@@ -3,7 +3,6 @@ package org.pizzacrud.controller;
 import jakarta.persistence.EntityNotFoundException;
 import org.pizzacrud.database.entity.Ingredient;
 import org.pizzacrud.dto.IngredientDto;
-import org.pizzacrud.mapper.IngredientListMapper;
 import org.pizzacrud.mapper.IngredientMapper;
 import org.pizzacrud.service.IngredientService;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -18,18 +17,16 @@ import java.util.List;
 public class IngredientController {
     private final IngredientService ingredientService;
     private final IngredientMapper ingredientMapper;
-    private final IngredientListMapper ingredientListMapper;
 
-    public IngredientController(IngredientService ingredientService, IngredientMapper ingredientMapper, IngredientListMapper ingredientListMapper) {
+    public IngredientController(IngredientService ingredientService, IngredientMapper ingredientMapper) {
         this.ingredientService = ingredientService;
         this.ingredientMapper = ingredientMapper;
-        this.ingredientListMapper = ingredientListMapper;
     }
 
     @GetMapping
     public ResponseEntity<List<IngredientDto>> getAllIngredients() {
         List<Ingredient> allIngredients = ingredientService.findAll();
-        List<IngredientDto> dtos = ingredientListMapper.toDtoList(allIngredients);
+        List<IngredientDto> dtos = ingredientMapper.toDtoList(allIngredients);
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
