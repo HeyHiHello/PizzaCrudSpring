@@ -5,8 +5,13 @@ import org.mapstruct.MappingConstants;
 import org.pizzacrud.database.entity.Pizza;
 import org.pizzacrud.dto.PizzaDto;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+import java.util.List;
+
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
+        uses = IngredientMapper.class)
 public interface PizzaMapper {
     PizzaDto toDto(Pizza pizza);
     Pizza toEntity(PizzaDto pizzaDto);
+    List<PizzaDto> toDtoList(List<Pizza> ingredientList);
+    List<Pizza> toEntityList(List<PizzaDto> ingredientDtoList);
 }
