@@ -1,11 +1,11 @@
 package org.pizzacrud.controller;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.pizzacrud.database.entity.Ingredient;
 import org.pizzacrud.database.entity.Pizza;
 import org.pizzacrud.dto.IngredientDto;
 import org.pizzacrud.dto.PizzaDto;
-import org.pizzacrud.mapper.IngredientListMapper;
-import org.pizzacrud.mapper.PizzaListMapper;
+import org.pizzacrud.mapper.IngredientMapper;
 import org.pizzacrud.mapper.PizzaMapper;
 import org.pizzacrud.service.PizzaService;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -20,56 +20,63 @@ import java.util.List;
 public class PizzaController {
     private final PizzaService pizzaService;
     private final PizzaMapper pizzaMapper;
-    private final PizzaListMapper pizzaListMapper;
-    private final IngredientListMapper ingredientListMapper;
+    private final IngredientMapper ingredientMapper;
 
-    public PizzaController(PizzaService pizzaService, PizzaMapper pizzaMapper, PizzaListMapper pizzaListMapper, IngredientListMapper ingredientListMapper) {
+    public PizzaController(PizzaService pizzaService, PizzaMapper pizzaMapper, IngredientMapper ingredientMapper) {
         this.pizzaService = pizzaService;
         this.pizzaMapper = pizzaMapper;
-        this.pizzaListMapper = pizzaListMapper;
-        this.ingredientListMapper = ingredientListMapper;
+        this.ingredientMapper = ingredientMapper;
     }
 
     @GetMapping
-    public List<PizzaDto> getAllPizzas() {
+    public ResponseEntity<List<PizzaDto>> getAllPizzas() {
         List<Pizza> allPizzas = pizzaService.findAll();
-        return pizzaListMapper.toDtoList(allPizzas);
+        List<PizzaDto> dtos = pizzaMapper.toDtoList(allPizzas);
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public PizzaDto getPizzaById(@PathVariable("id") int id) {
-        return pizzaMapper.toDto(pizzaService.findById(id));
+    public ResponseEntity<PizzaDto> getPizzaById(@PathVariable("id") int id) {
+        Pizza pizza = pizzaService.findById(id);
+        PizzaDto dto = pizzaMapper.toDto(pizza);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @GetMapping("/{id}/ingredients")
-    public List<IngredientDto> getPizzaIngredients(@PathVariable("id") int id) {
+    public ResponseEntity<List<IngredientDto>> getPizzaIngredients(@PathVariable("id") int id) {
         Pizza pizza = pizzaService.findById(id);
-        return ingredientListMapper.toDtoList(pizza.getIngredients());
+        List<Ingredient> ingredients = pizza.getIngredients();
+        List<IngredientDto> dtos = ingredientMapper.toDtoList(ingredients);
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
     @PostMapping
-    public PizzaDto createPizza(@RequestBody PizzaDto pizzaDto) {
+    public ResponseEntity<PizzaDto> createPizza(@RequestBody PizzaDto pizzaDto) {
         Pizza pizza = pizzaMapper.toEntity(pizzaDto);
         Pizza createdPizza = pizzaService.create(pizza);
-        return pizzaMapper.toDto(createdPizza);
+        PizzaDto createdPizzaDto = pizzaMapper.toDto(createdPizza);
+        return new ResponseEntity<>(createdPizzaDto, HttpStatus.CREATED);
     }
 
     @PostMapping("/{id}/ingredients")
-    public PizzaDto addIngredientToPizza(@PathVariable("id") int id, @RequestBody List<Integer> ingredientIds) {
+    public ResponseEntity<PizzaDto> addIngredientsToPizza(@PathVariable("id") int id, @RequestBody List<Integer> ingredientIds) {
         Pizza updatedPizza = pizzaService.setIngredients(id, ingredientIds);
-        return pizzaMapper.toDto(updatedPizza);
+        PizzaDto pizzaDto = pizzaMapper.toDto(updatedPizza);
+        return new ResponseEntity<>(pizzaDto, HttpStatus.OK);
     }
 
     @PatchMapping("/{id}")
-    public PizzaDto updatePizza(@PathVariable("id") int id, @RequestBody PizzaDto pizzaDto) {
+    public ResponseEntity<PizzaDto> updatePizza(@PathVariable("id") int id, @RequestBody PizzaDto pizzaDto) {
         Pizza pizza = pizzaMapper.toEntity(pizzaDto);
         Pizza updatedPizza = pizzaService.update(id, pizza);
-        return pizzaMapper.toDto(updatedPizza);
+        PizzaDto dto = pizzaMapper.toDto(updatedPizza);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public void deletePizza(@PathVariable("id") int id) {
+    public ResponseEntity<PizzaDto> deletePizza(@PathVariable("id") int id) {
         pizzaService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)

@@ -25,25 +25,6 @@ public class Pizza {
     public Pizza() {
     }
 
-    public Pizza(int id, String name, double price, List<Ingredient> ingredients) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.ingredients = ingredients;
-    }
-
-    public Pizza(String name, double price, List<Ingredient> ingredients) {
-        this.name = name;
-        this.price = price;
-        this.ingredients = ingredients;
-    }
-
-    public Pizza(String name, double price) {
-        this.name = name;
-        this.price = price;
-        this.ingredients = new ArrayList<>();
-    }
-
     public int getId() {
         return id;
     }
@@ -73,6 +54,6 @@ public class Pizza {
     }
 
     public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
+        this.ingredients = ingredients == null ? new ArrayList<>() : ingredients;
     }
 }
