@@ -11,10 +11,10 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id")
     private Customer customer;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "m2m_Pizzas_Orders",
             joinColumns = {@JoinColumn(name = "order_id")},
             inverseJoinColumns = {@JoinColumn(name = "pizza_id")})
