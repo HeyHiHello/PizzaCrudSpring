@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller that serve crud requests on Ingredient entity
+ */
 @RestController
 @RequestMapping("/api/ingredient")
 public class IngredientController {
@@ -23,6 +26,10 @@ public class IngredientController {
         this.ingredientMapper = ingredientMapper;
     }
 
+    /**
+     * Get all Ingredients from DB
+     * @return ResponseEntity with List of Ingredients and response code OK
+     */
     @GetMapping
     public ResponseEntity<List<IngredientDto>> getAllIngredients() {
         List<Ingredient> allIngredients = ingredientService.findAll();
@@ -30,6 +37,11 @@ public class IngredientController {
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
+    /**
+     * Get Ingredient by its id
+     * @param ingredientId id of the Ingredient
+     * @return ResponseEntity with requested Ingredient and status code OK
+     */
     @GetMapping("{id}")
     public ResponseEntity<IngredientDto> getIngredientById(@PathVariable(name = "id") int ingredientId) {
         Ingredient ingredient = ingredientService.findById(ingredientId);
@@ -37,6 +49,11 @@ public class IngredientController {
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
+    /**
+     * Create new Ingredient
+     * @param ingredientDto Request body with ingredient data
+     * @return ResponseEntity with created Ingredient and status code CREATED
+     */
     @PostMapping
     public ResponseEntity<IngredientDto> createIngredient(@RequestBody IngredientDto ingredientDto) {
         Ingredient ingredient = ingredientMapper.toEntity(ingredientDto);
@@ -46,6 +63,12 @@ public class IngredientController {
         return new ResponseEntity<>(createdIngredientDto, HttpStatus.CREATED);
     }
 
+    /**
+     * Update Ingredient by its id
+     * @param ingredientId id of the Ingredient
+     * @param ingredientDto request body with Ingredient data
+     * @return ResponseEntity with saved ingredient
+     */
     @PatchMapping("{id}")
     public ResponseEntity<IngredientDto> updateIngredient(@PathVariable(name = "id") int ingredientId, @RequestBody IngredientDto ingredientDto) {
         Ingredient ingredient = ingredientMapper.toEntity(ingredientDto);
@@ -54,22 +77,42 @@ public class IngredientController {
         return new ResponseEntity<>(updatedIngredientDto, HttpStatus.OK);
     }
 
+    /**
+     * Delete Ingredient by id
+     * @param ingredientId id of the Ingredient
+     * @return ResponseEntity with updated Ingredient
+     */
     @DeleteMapping("{id}")
     public ResponseEntity<IngredientDto> deleteIngredient(@PathVariable(name = "id") int ingredientId) {
         ingredientService.delete(ingredientId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    /**
+     * Repository didn't find any Entity by given id
+     * @param e Exception
+     * @return ResponseEntity with status code NOT FOUND
+     */
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException e) {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Insertion finished with error due to invalid request body
+     * @param e Exception
+     * @return ResponseEntity with response code BAD REQUEST
+     */
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Unknown server error
+     * @param e exception
+     * @return ResponseEntity with response code INTERNAL SERVER ERROR
+     */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleAllException(Exception e) {
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

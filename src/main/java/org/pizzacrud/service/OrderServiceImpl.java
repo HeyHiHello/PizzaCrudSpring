@@ -13,17 +13,31 @@ public class OrderServiceImpl implements OrderService{
         this.orderRepository = orderRepository;
     }
 
+    /**
+     * Find Order by its id
+     * @param id id of the Order
+     * @return Found Order
+     */
     @Override
     public Order findById(int id) {
         return orderRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
+    /**
+     * Create new Order
+     * @param order order data
+     * @return Created Order
+     */
     @Override
     public Order save(Order order) {
         order.setId(0);
         return orderRepository.save(order);
     }
 
+    /**
+     * Delete Order by its id
+     * @param id id of the Order
+     */
     @Override
     public void delete(int id) {
         orderRepository.deleteById(id);

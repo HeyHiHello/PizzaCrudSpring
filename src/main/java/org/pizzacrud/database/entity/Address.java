@@ -21,27 +21,6 @@ public class Address {
     public Address() {
     }
 
-    public Address(int id, String city, String street, String building, Customer customer) {
-        this.id = id;
-        this.city = city;
-        this.street = street;
-        this.building = building;
-        this.customer = customer;
-    }
-
-    public Address(String city, String street, String building, Customer customer) {
-        this.city = city;
-        this.street = street;
-        this.building = building;
-        this.customer = customer;
-    }
-
-    public Address(String city, String street, String building) {
-        this.city = city;
-        this.street = street;
-        this.building = building;
-    }
-
     public int getId() {
         return id;
     }

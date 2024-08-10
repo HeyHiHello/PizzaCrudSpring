@@ -8,6 +8,9 @@ import org.pizzacrud.mapper.PizzaMapper;
 import org.pizzacrud.service.PizzaService;
 import org.springframework.stereotype.Component;
 
+/**
+ * Converter applied while parsing Dto that contains only Pizza id
+ */
 @Component
 public class PizzaDtoByIdConverter implements Converter<Integer, PizzaDto> {
     private final PizzaService pizzaService;

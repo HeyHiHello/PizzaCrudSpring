@@ -3,12 +3,10 @@ package org.pizzacrud.database.repository;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.pizzacrud.configuration.MvcConfiguration;
 import org.pizzacrud.database.TestDbInitializer;
 import org.pizzacrud.database.entity.Address;
 import org.pizzacrud.database.entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
@@ -18,8 +16,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringJUnitConfig(MvcConfiguration.class)
-@ContextConfiguration(classes = {DbTestConfiguration.class})
+@SpringJUnitConfig(DbTestConfiguration.class)
 public class CustomerRepositoryTest {
     @Autowired
     CustomerRepository repository;
