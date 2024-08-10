@@ -17,33 +17,12 @@ public class Customer {
     private String lastname;
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
-    Address address;
+    Address address = new Address();
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
     List<Order> orders;
 
     public Customer() {
-    }
-
-    public Customer(int id, String firstname, String lastname, Address address, List<Order> orders) {
-        this.id = id;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.address = address;
-        this.orders = orders;
-    }
-
-    public Customer(String firstname, String lastname, Address address, List<Order> orders) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.address = address;
-        this.orders = orders;
-    }
-
-    public Customer(String firstname, String lastname, Address address) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.address = address;
     }
 
     public int getId() {
@@ -52,6 +31,8 @@ public class Customer {
 
     public void setId(int id) {
         this.id = id;
+        this.address.setId(id);
+        this.address.setCustomer(this);
     }
 
     public String getFirstname() {
@@ -76,6 +57,8 @@ public class Customer {
 
     public void setAddress(Address address) {
         this.address = address;
+        this.address.setId(id);
+        this.address.setCustomer(this);
     }
 
     public List<Order> getOrders() {

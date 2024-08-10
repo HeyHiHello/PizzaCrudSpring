@@ -19,13 +19,6 @@ public class PizzaDto {
     public PizzaDto() {
     }
 
-    public PizzaDto(int id, String name, double price, List<IngredientDto> ingredients) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.ingredients = ingredients;
-    }
-
     public int getId() {
         return id;
     }

@@ -23,17 +23,6 @@ public class Order {
     public Order() {
     }
 
-    public Order(int id, Customer customer, List<Pizza> pizzas) {
-        this.id = id;
-        this.customer = customer;
-        this.pizzas = pizzas;
-    }
-
-    public Order(Customer customer, List<Pizza> pizzas) {
-        this.customer = customer;
-        this.pizzas = pizzas;
-    }
-
     public int getId() {
         return id;
     }
