@@ -1,7 +1,6 @@
 package org.pizzacrud.service.configuration;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.pizzacrud.configuration.DatabaseConfiguration;
 import org.pizzacrud.database.entity.Customer;
 import org.pizzacrud.database.entity.Order;
 import org.pizzacrud.database.entity.Pizza;
